@@ -2,16 +2,17 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using ExploderGuy.Input;
+using Unity.VisualScripting;
 
 namespace ExploderGuy.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] private float _moveSpeed = 3f;
+
         private GameInput _input;
         private Rigidbody2D _rb;
         private Vector2 _moveInput;
-
-        [SerializeField] private float _moveSpeed;
 
         private void Awake()
         {
@@ -25,7 +26,6 @@ namespace ExploderGuy.Player
         private void Update()
         {
             _moveInput = _input.Player.Move.ReadValue<Vector2>();
-            Debug.Log($"Movement Detected: {_moveInput}.");
         }
 
         private void FixedUpdate()
