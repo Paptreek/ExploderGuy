@@ -157,7 +157,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.45
 --- !u!114 &8146224158221709090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,4 +170,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78faaa09177e02d448750b4cedd3b2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.PlayerController
-  _moveSpeed: 5
+  _moveSpeed: 3
