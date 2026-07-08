@@ -143,7 +143,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -152,6 +152,50 @@ TextureImporter:
       bones: []
       spriteID: cd6e8aece177a044baa428ad439bc897
       internalID: 1150044953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wall_corner_test
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 240
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90406f99761879c4c8c0c8ee09323db8
+      internalID: 856365374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hard_block_test
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e944ae40c7345ec41807bdc8e85509f1
+      internalID: 1193880857
       vertices: []
       indices: 
       edges: []
@@ -171,6 +215,8 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       floor_grass_test: 8020143640844766479
+      hard_block_test: 1193880857
+      wall_corner_test: 856365374
       wall_test: 1150044953
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
