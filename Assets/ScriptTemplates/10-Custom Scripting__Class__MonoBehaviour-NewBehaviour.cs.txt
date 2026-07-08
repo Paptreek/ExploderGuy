@@ -1,0 +1,21 @@
+using UnityEngine;
+
+#ROOTNAMESPACEBEGIN#
+#NOTRIM#    public class #SCRIPTNAME# : MonoBehaviour
+    {
+        private void Awake()
+        {
+            #NOTRIM#
+        }
+
+        void Start()
+        {
+            #NOTRIM#
+        }
+
+        void Update()
+        {
+            #NOTRIM#
+        }
+    }
+#ROOTNAMESPACEEND#

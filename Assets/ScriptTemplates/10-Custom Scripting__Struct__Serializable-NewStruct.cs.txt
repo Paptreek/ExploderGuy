@@ -1,0 +1,9 @@
+using System;
+
+#ROOTNAMESPACEBEGIN#
+#NOTRIM#    [Serializable]
+    public struct #SCRIPTNAME#
+    {
+        #NOTRIM#
+    }
+#ROOTNAMESPACEEND#

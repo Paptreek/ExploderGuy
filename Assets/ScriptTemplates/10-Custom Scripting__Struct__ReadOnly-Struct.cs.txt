@@ -1,0 +1,8 @@
+using System;
+
+#ROOTNAMESPACEBEGIN#
+#NOTRIM#    public readonly struct #SCRIPTNAME#
+    {
+        #NOTRIM#
+    }
+#ROOTNAMESPACEEND#

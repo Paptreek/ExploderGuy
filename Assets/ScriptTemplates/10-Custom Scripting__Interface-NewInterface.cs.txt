@@ -1,0 +1,8 @@
+using System;
+
+#ROOTNAMESPACEBEGIN#
+#NOTRIM#    public interface #SCRIPTNAME#
+    {
+        #NOTRIM#
+    }
+#ROOTNAMESPACEEND#

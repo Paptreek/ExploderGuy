@@ -1,0 +1,8 @@
+using System;
+
+#ROOTNAMESPACEBEGIN#
+#NOTRIM#    public class #SCRIPTNAME# : MonoBehaviour
+    {
+        #NOTRIM#
+    }
+#ROOTNAMESPACEEND#

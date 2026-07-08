@@ -1,0 +1,5 @@
+using System;
+
+#ROOTNAMESPACEBEGIN#
+#NOTRIM#    public enum #SCRIPTNAME# { }
+#ROOTNAMESPACEEND#
