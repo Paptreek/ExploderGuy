@@ -187,7 +187,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -196,6 +196,28 @@ TextureImporter:
       bones: []
       spriteID: e944ae40c7345ec41807bdc8e85509f1
       internalID: 1193880857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_temp
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 239
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3eb6ecc5ab2bfd49ad40fbd85c35367
+      internalID: -1886078297
       vertices: []
       indices: 
       edges: []
@@ -216,6 +238,7 @@ TextureImporter:
     nameFileIdTable:
       floor_grass_test: 8020143640844766479
       hard_block_test: 1193880857
+      player_temp: -1886078297
       wall_corner_test: 856365374
       wall_test: 1150044953
   mipmapLimitGroupName: 
