@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7014653102700407635}
   - component: {fileID: 8146224158221709090}
   - component: {fileID: 3386191744136216190}
+  - component: {fileID: 5087321483299418299}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -186,5 +187,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.Player.PlayerState
   _startingLives: 3
   _maximumLives: 9
-  _startingBombCapacity: 1
+  _startingActiveBombLimit: 1
   _defaultInvulnerabilityDuration: 10
+--- !u!114 &5087321483299418299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625079166862911322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c204ca8c408474d9bb76fd73ebc438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.Bomb.BombPlacer
+  _bombPrefab: {fileID: 6522978792572505898, guid: a07e061a5fb06b442b649f213f64e86e, type: 3}

@@ -1,8 +1,5 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using ExploderGuy.Input;
-using Unity.VisualScripting;
 
 namespace ExploderGuy.Player
 {
@@ -13,6 +10,7 @@ namespace ExploderGuy.Player
         private GameInput _input;
         private Rigidbody2D _rb;
         private Vector2 _moveInput;
+        public bool InteractWasPressedThisFrame => _input.Player.Interact.WasPressedThisFrame();
 
         private void Awake()
         {

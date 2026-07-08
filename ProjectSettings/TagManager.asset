@@ -53,11 +53,11 @@ TagManager:
   - name: SoftBlocks
     uniqueID: 3244663931
     locked: 0
-  - name: Entities
-    uniqueID: 702122511
-    locked: 0
   - name: Bombs
     uniqueID: 1583079753
+    locked: 0
+  - name: Entities
+    uniqueID: 702122511
     locked: 0
   - name: Effects
     uniqueID: 4091749173
