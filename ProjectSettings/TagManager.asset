@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags: []
   layers:
   - Default
@@ -41,3 +41,27 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1456637605
+    locked: 0
+  - name: Walls
+    uniqueID: 3801713035
+    locked: 0
+  - name: Powerup
+    uniqueID: 1407181455
+    locked: 0
+  - name: SoftBlocks
+    uniqueID: 3244663931
+    locked: 0
+  - name: Entities
+    uniqueID: 702122511
+    locked: 0
+  - name: Bombs
+    uniqueID: 1583079753
+    locked: 0
+  - name: Effects
+    uniqueID: 4091749173
+    locked: 0
+  m_RenderingLayers:
+  - Default
+  m_MigratedRenderPipelines: []
