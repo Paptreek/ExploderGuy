@@ -296,6 +296,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -1, y: -6, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 1, y: -6, z: 0}
     second:
       serializedVersion: 2
@@ -586,6 +596,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -5, y: 1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -3, y: 1, z: 0}
     second:
       serializedVersion: 2
@@ -722,18 +742,18 @@ Tilemap:
     m_RefCount: 0
     m_Data: {fileID: 11400000, guid: fed0c6cffa73d7d4680d3a32ef5235fd, type: 2}
   - serializedVersion: 2
-    m_RefCount: 46
+    m_RefCount: 48
     m_Data: {fileID: 11400000, guid: 9bab7d6523b3e344187f61cf3af21afe, type: 2}
   m_TileSpriteArray:
   - serializedVersion: 2
     m_RefCount: 0
     m_Data: {fileID: 1150044953, guid: fd82fd754b160f144b8d513a6af08cf8, type: 3}
   - serializedVersion: 2
-    m_RefCount: 46
+    m_RefCount: 48
     m_Data: {fileID: 1193880857, guid: fd82fd754b160f144b8d513a6af08cf8, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
-    m_RefCount: 46
+    m_RefCount: 48
     m_Data:
       e00: 1
       e01: 0
@@ -810,7 +830,7 @@ Tilemap:
       e33: 1
   m_TileColorArray:
   - serializedVersion: 2
-    m_RefCount: 46
+    m_RefCount: 48
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -1801,6 +1821,10 @@ PrefabInstance:
     - target: {fileID: 7625079166862911322, guid: 1e408a602a2b7d147863f30fa3dffc68, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8146224158221709090, guid: 1e408a602a2b7d147863f30fa3dffc68, type: 3}
+      propertyPath: _moveSpeed
+      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
