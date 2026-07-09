@@ -1,7 +1,7 @@
 using UnityEngine;
 using ExploderGuy.Input;
 
-namespace ExploderGuy.Player
+namespace ExploderGuy
 {
     public class PlayerController : MonoBehaviour
     {

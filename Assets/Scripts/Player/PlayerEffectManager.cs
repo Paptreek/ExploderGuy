@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ExploderGuy.Player
+namespace ExploderGuy
 {
     public class PlayerEffectManager : MonoBehaviour
     {

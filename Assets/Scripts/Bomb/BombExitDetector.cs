@@ -1,7 +1,6 @@
 using UnityEngine;
-using ExploderGuy.Player;
 
-namespace ExploderGuy.Bomb
+namespace ExploderGuy
 {
     public class BombExitDetector : MonoBehaviour
     {
