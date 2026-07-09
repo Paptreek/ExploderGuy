@@ -1,0 +1,23 @@
+using UnityEngine;
+using ExploderGuy.Player;
+
+namespace ExploderGuy.Bomb
+{
+    public class BombExitDetector : MonoBehaviour
+    {
+        private Bomb _bomb;
+
+        private void Awake()
+        {
+            _bomb = GetComponentInParent<Bomb>();
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.TryGetComponent<PlayerController>(out _))
+            {
+                _bomb.RestorePlayerCollision();
+            }
+        }
+    }
+}
