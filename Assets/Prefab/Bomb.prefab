@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 7047495912289193757}
   - component: {fileID: 7182136674785989940}
   - component: {fileID: 6522978792572505898}
+  - component: {fileID: 5029266764190203471}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -175,7 +176,7 @@ SpriteRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -1976660061, guid: fd82fd754b160f144b8d513a6af08cf8, type: 3}
   m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -234,3 +235,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def43f3a8a0532c4ea5b324eaea189a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.Bomb.Bomb
+--- !u!114 &5029266764190203471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099359530499883069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd261f67f55887b4d81325ac769079fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.BombExploder
+  _explosionTimer: 2
+  _bombExplosionPrefab: {fileID: 7745063166472210689, guid: ab9b20c03e289904e9df6bf30517ed5a, type: 3}
