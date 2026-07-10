@@ -204,12 +204,12 @@ TextureImporter:
       name: player_temp
       rect:
         serializedVersion: 2
-        x: 49
-        y: 239
-        width: 14
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 48
+        y: 235
+        width: 16
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -266,6 +266,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: soft_block
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 242
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e35e75c671ec37b4b8aa31aaa5abec65
+      internalID: -27955036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -285,6 +307,7 @@ TextureImporter:
       floor: 8020143640844766479
       hard_block_test: 1193880857
       player_temp: -1886078297
+      soft_block: -27955036
       wall_corner_test: 856365374
       wall_test: 1150044953
   mipmapLimitGroupName: 
