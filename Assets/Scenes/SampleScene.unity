@@ -1425,6 +1425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.LevelGenerator
   _blockTilemap: {fileID: 109785993}
   _hardBlockTile: {fileID: 11400000, guid: 9bab7d6523b3e344187f61cf3af21afe, type: 2}
+  _softBlock: {fileID: 2301519507965686398, guid: d9d80536cc21a1d4aaf689d5d5611453, type: 3}
 --- !u!4 &1853935851
 Transform:
   m_ObjectHideFlags: 0

@@ -8,16 +8,23 @@ namespace ExploderGuy
         [SerializeField] private Tilemap _blockTilemap;
         [SerializeField] private Tile _hardBlockTile;
 
-        private TileType[,] _tileTypes = new TileType[11, 13];
+        [SerializeField] private SoftBlock _softBlock;
+
+        private int _softBlockCount;
+        private TileType[,] _tileTypes = new TileType[13, 11];
 
         private void Awake()
         {
             CreateInitialState();
+
+            _tileTypes[0, 10] = TileType.SpawnPoint;
+            _tileTypes[1, 10] = TileType.SpawnPoint;
+            _tileTypes[0, 9] = TileType.SpawnPoint;
         }
 
         private void Start()
         {
-            // create soft blocks and enemies here
+            CreateSoftBlocks();
         }
 
         private void CreateInitialState()
@@ -25,28 +32,63 @@ namespace ExploderGuy
             int x = 0;
             int y = 0;
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 11; i++)
             {
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < 13; j++)
                 {
-                    Vector3Int location = new Vector3Int(x + 1, -y - 1);
+                    Vector3Int location = new Vector3Int(x, -y);
 
-                    _tileTypes[x, y] = TileType.HardBlock;
-                    _blockTilemap.SetTile(location, _hardBlockTile);
+                    if (i % 2 == 1 && j % 2 == 1)
+                    {
+                        _tileTypes[x, y] = TileType.HardBlock;
+                        _blockTilemap.SetTile(location, _hardBlockTile);
+                    }
 
-                    x += 2;
+                    x++;
                 }
 
-                y += 2;
+                y++;
                 x = 0;
             }
         }
 
         private void CreateSoftBlocks()
         {
+            int x = 0;
+            int y = 0;
 
+            while (_softBlockCount < 33)
+            {
+                for (int i = 0; i < 11; i++)
+                {
+                    for (int j = 0; j < 13; j++)
+                    {
+                        if (_tileTypes[x, y] != TileType.HardBlock && _tileTypes[x, y] != TileType.SpawnPoint)
+                        {
+                            int random = Random.Range(1, 11);
+
+                            if (random == 10 && _softBlockCount < 33)
+                            {
+                                Instantiate(_softBlock, new Vector3(x - 6, y - 5), Quaternion.identity);
+                                _tileTypes[x, y] = TileType.SoftBlock;
+                                _softBlockCount++;
+                            }
+                        }
+
+                        x++;
+                    }
+
+                    y++;
+                    x = 0;
+                }
+
+                x = 0;
+                y = 0;
+            }
+
+            Debug.Log($"Soft Block Count: {_softBlockCount}");
         }
     }
 
-    public enum TileType { Empty, HardBlock, SoftBlock }
+    public enum TileType { Empty, HardBlock, SoftBlock, SpawnPoint }
 }
