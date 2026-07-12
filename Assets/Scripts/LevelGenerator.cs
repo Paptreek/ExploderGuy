@@ -11,6 +11,7 @@ namespace ExploderGuy
         [SerializeField] private SoftBlock _softBlock;
 
         private int _softBlockCount;
+        private int _extraHardBlockCount;
         private TileType[,] _tileTypes = new TileType[13, 11];
 
         private void Awake()
@@ -25,6 +26,7 @@ namespace ExploderGuy
         private void Start()
         {
             CreateSoftBlocks();
+            CreateAdditionalHardBlocks();
         }
 
         private void CreateInitialState()
@@ -36,7 +38,7 @@ namespace ExploderGuy
             {
                 for (int j = 0; j < 13; j++)
                 {
-                    Vector3Int location = new Vector3Int(x, -y);
+                    Vector3Int location = new Vector3Int(x, y);
 
                     if (i % 2 == 1 && j % 2 == 1)
                     {
@@ -63,7 +65,7 @@ namespace ExploderGuy
                 {
                     for (int j = 0; j < 13; j++)
                     {
-                        if (_tileTypes[x, y] != TileType.HardBlock && _tileTypes[x, y] != TileType.SpawnPoint)
+                        if (_tileTypes[x, y] == TileType.Empty)
                         {
                             int random = Random.Range(1, 11);
 
@@ -86,7 +88,43 @@ namespace ExploderGuy
                 y = 0;
             }
 
-            Debug.Log($"Soft Block Count: {_softBlockCount}");
+            Debug.Log($"SoftBlocks: {_softBlockCount}");
+        }
+
+        private void CreateAdditionalHardBlocks()
+        {
+            int x = 0;
+            int y = 0;
+
+            while (_extraHardBlockCount < 8)
+            {
+                for (int i = 0; i < 11; i++)
+                {
+                    for (int j = 0; j < 13; j++)
+                    {
+                        Vector3Int location = new Vector3Int(x, y);
+
+                        int random = Random.Range(1, 14);
+
+                        if (_tileTypes[x, y] == TileType.Empty && _extraHardBlockCount < 8 && random == 13)
+                        {
+                            _tileTypes[x, y] = TileType.HardBlock;
+                            _blockTilemap.SetTile(location, _hardBlockTile);
+                            _extraHardBlockCount++;
+                        }
+
+                        x++;
+                    }
+
+                    y++;
+                    x = 0;
+                }
+
+                y = 0;
+                x = 0;
+            }
+
+            Debug.Log($"Extra HardBlocks: {_extraHardBlockCount}");
         }
     }
 
