@@ -65,16 +65,13 @@ namespace ExploderGuy
                 {
                     for (int j = 0; j < 13; j++)
                     {
-                        if (_tileTypes[x, y] == TileType.Empty)
-                        {
-                            int random = Random.Range(1, 11);
+                        int random = Random.Range(1, 11);
 
-                            if (random == 10 && _softBlockCount < 33)
-                            {
-                                Instantiate(_softBlock, new Vector3(x - 6, y - 5), Quaternion.identity);
-                                _tileTypes[x, y] = TileType.SoftBlock;
-                                _softBlockCount++;
-                            }
+                        if (_tileTypes[x, y] == TileType.Empty && random == 10 && _softBlockCount < 33)
+                        {
+                            Instantiate(_softBlock, new Vector3(x - 6, y - 5), Quaternion.identity);
+                            _tileTypes[x, y] = TileType.SoftBlock;
+                            _softBlockCount++;
                         }
 
                         x++;
