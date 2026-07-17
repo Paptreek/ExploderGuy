@@ -36,6 +36,8 @@ namespace ExploderGuy
 
             _invulnerabilityTimer -= Time.deltaTime;
 
+            
+
             if (_invulnerabilityTimer <= 0f)
             {
                 ClearInvulnerability();
@@ -70,5 +72,17 @@ namespace ExploderGuy
         public void LoseLife() => LivesRemaining = Mathf.Max(0, LivesRemaining - 1);
         public void AddLife() => LivesRemaining = Mathf.Min(LivesRemaining + 1, _maximumLives);
         public void IncreaseBombLimit() => ActiveBombLimit++;
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            Collider2D collider = GetComponent<Collider2D>();
+            if (IsInvulnerable)
+            {
+                if (collision.TryGetComponent(out Bomb bomb))
+                {
+                    Physics2D.IgnoreCollision(collider, bomb.GetComponent<Collider2D>());
+                }
+            }
+        }
     }
 }
