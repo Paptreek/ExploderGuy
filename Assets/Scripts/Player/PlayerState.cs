@@ -20,6 +20,7 @@ namespace ExploderGuy
             _invulnerability = GetComponent<PlayerInvulnerability>();
             _startingPosition = transform.position;
             ResetPlayerState();
+            InitialPlayerSpawn();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -37,9 +38,16 @@ namespace ExploderGuy
             ActiveBombLimit = _startingActiveBombLimit;
         }
 
+        public void InitialPlayerSpawn() => SpawnPlayer();
+
         public void RespawnPlayer()
         {
             LoseLife();
+            SpawnPlayer();
+        }
+
+        private void SpawnPlayer()
+        {
             transform.position = _startingPosition;
             _invulnerability.SetInvulnerability(_defaultInvulnerabilityDuration);
         }
