@@ -9,88 +9,43 @@ namespace ExploderGuy
         [SerializeField] private int _startingActiveBombLimit = 1;
         [SerializeField] private float _defaultInvulnerabilityDuration = 10f;
 
-        private float _invulnerabilityTimer = 0f;
         private Vector3 _startingPosition;
+        private PlayerInvulnerability _invulnerability;
 
-        public bool IsInvulnerable { get; private set; }
         public int LivesRemaining { get; private set; }
         public int ActiveBombLimit { get; private set; }
 
         private void Awake()
         {
+            _invulnerability = GetComponent<PlayerInvulnerability>();
             _startingPosition = transform.position;
             ResetPlayerState();
         }
 
-        private void Update()
-        {
-            UpdateInvulnerability();
-        }
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag($"Explosion"))
+            if (!_invulnerability.IsInvulnerable && collision.CompareTag($"Explosion"))
             {
                 RespawnPlayer();
             }
         }
 
-        private void UpdateInvulnerability()
-        {
-            if (!IsInvulnerable)
-            {
-                return;
-            }
-
-            _invulnerabilityTimer -= Time.deltaTime;
-
-            
-
-            if (_invulnerabilityTimer <= 0f)
-            {
-                ClearInvulnerability();
-            }
-        }
-
-        private void ClearInvulnerability()
-        {
-            IsInvulnerable = false;
-            _invulnerabilityTimer = 0f;
-        }
-
         public void ResetPlayerState()
         {
-            ClearInvulnerability();
+            _invulnerability.ClearInvulnerability();
             LivesRemaining = _startingLives;
             ActiveBombLimit = _startingActiveBombLimit;
         }
 
         public void RespawnPlayer()
         {
+            LoseLife();
             transform.position = _startingPosition;
-            SetInvulnerability(_defaultInvulnerabilityDuration);
-        }
-
-        public void SetInvulnerability(float duration)
-        {
-            IsInvulnerable = true;
-            _invulnerabilityTimer = Mathf.Max(0f, duration);
+            _invulnerability.SetInvulnerability(_defaultInvulnerabilityDuration);
         }
 
         public void LoseLife() => LivesRemaining = Mathf.Max(0, LivesRemaining - 1);
         public void AddLife() => LivesRemaining = Mathf.Min(LivesRemaining + 1, _maximumLives);
         public void IncreaseBombLimit() => ActiveBombLimit++;
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            Collider2D collider = GetComponent<Collider2D>();
-            if (IsInvulnerable)
-            {
-                if (collision.TryGetComponent(out Bomb bomb))
-                {
-                    Physics2D.IgnoreCollision(collider, bomb.GetComponent<Collider2D>());
-                }
-            }
-        }
     }
 }
