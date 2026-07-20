@@ -20,7 +20,7 @@ namespace ExploderGuy.PlayArea
         {
             if (PathIsBlocked)
             {
-                Debug.Log($"Path is blocked.");
+                //Debug.Log($"Path is blocked.");
                 _grid.NodePath.Clear();
             }
         }
@@ -30,7 +30,7 @@ namespace ExploderGuy.PlayArea
             Node startNode = _grid.GetNodeFromWorldPosition(startPos);
             Node targetNode = _grid.GetNodeFromWorldPosition(targetPos);
 
-            Debug.Log($"Target Position: {targetNode.X}, {targetNode.Y}");
+            //Debug.Log($"Target Position: {targetNode.X}, {targetNode.Y}");
 
             List<Node> openSet = new List<Node>();
             HashSet<Node> closedSet = new HashSet<Node>();

@@ -135,6 +135,7 @@ namespace ExploderGuy.PlayArea
 
             Debug.Log($"Extra HardBlocks: {_extraHardBlockCount}. ALL BLOCKS PLACED!");
             PlaceSoftBlocks();
+            _nodeGrid.ShowDebug = false;
         }
 
         private async Task CheckForDeadEnds(int x, int y)
@@ -152,12 +153,13 @@ namespace ExploderGuy.PlayArea
                     {
                         if (_tileTypes[xToCheck, yToCheck] == TileType.Empty)
                         {
-                            //await Task.Delay(500);
-                            await Task.Yield();
+                            await Task.Delay(100);
+                            //await Task.Yield();
                             _pathfinding.FindPath(_pathfinding.Seeker.position, new Vector3(xToCheck - 6, yToCheck - 5));
 
                             if (_pathfinding.PathIsBlocked)
                             {
+                                Debug.Log("Found a dead end. Starting over!");
                                 _blockTilemap.ClearAllTiles();
                                 _extraHardBlockCount = 0;
                                 CreateInitialState();

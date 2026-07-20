@@ -14,6 +14,7 @@ namespace ExploderGuy.PlayArea
         [field: SerializeField] public Vector2 WorldSize { get; set; }
         [field: SerializeField] public float NodeRadius { get; set; }
 
+        public bool ShowDebug { get; set; } = true;
         public List<Node> NodePath { get; set; }
 
         private void Awake()
@@ -130,7 +131,7 @@ namespace ExploderGuy.PlayArea
         {
             Color invisible = new Color32(255, 255, 255, 0);
 
-            if (_nodeGrid != null)
+            if (_nodeGrid != null && ShowDebug)
             {
                 foreach (Node node in _nodeGrid)
                 {
