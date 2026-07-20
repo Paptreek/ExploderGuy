@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ExploderGuy
+namespace ExploderGuy.PlayArea
 {
     public class SoftBlock : MonoBehaviour
     {
