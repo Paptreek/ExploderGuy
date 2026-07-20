@@ -19,8 +19,12 @@ namespace ExploderGuy
         {
             _invulnerability = GetComponent<PlayerInvulnerability>();
             _startingPosition = transform.position;
-            ResetPlayerState();
-            InitialPlayerSpawn();
+            InitializePlayerState();
+        }
+
+        private void Start()
+        {
+            SpawnPlayer();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -31,14 +35,11 @@ namespace ExploderGuy
             }
         }
 
-        public void ResetPlayerState()
+        private void InitializePlayerState()
         {
-            _invulnerability.ClearInvulnerability();
             LivesRemaining = _startingLives;
             ActiveBombLimit = _startingActiveBombLimit;
         }
-
-        public void InitialPlayerSpawn() => SpawnPlayer();
 
         public void RespawnPlayer()
         {
