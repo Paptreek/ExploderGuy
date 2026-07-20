@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ExploderGuy.Player
+namespace ExploderGuy
 {
     public class PlayerState : MonoBehaviour
     {
@@ -9,70 +9,47 @@ namespace ExploderGuy.Player
         [SerializeField] private int _startingActiveBombLimit = 1;
         [SerializeField] private float _defaultInvulnerabilityDuration = 10f;
 
-        private float _invulnerabilityTimer = 0f;
         private Vector3 _startingPosition;
+        private PlayerInvulnerability _invulnerability;
 
-        public bool IsInvulnerable { get; private set; }
         public int LivesRemaining { get; private set; }
         public int ActiveBombLimit { get; private set; }
 
         private void Awake()
         {
+            _invulnerability = GetComponent<PlayerInvulnerability>();
             _startingPosition = transform.position;
             ResetPlayerState();
-        }
-
-        private void Update()
-        {
-            UpdateInvulnerability();
+            InitialPlayerSpawn();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag($"Explosion"))
+            if (!_invulnerability.IsInvulnerable && collision.CompareTag($"Explosion"))
             {
                 RespawnPlayer();
             }
         }
 
-        private void UpdateInvulnerability()
-        {
-            if (!IsInvulnerable)
-            {
-                return;
-            }
-
-            _invulnerabilityTimer -= Time.deltaTime;
-
-            if (_invulnerabilityTimer <= 0f)
-            {
-                ClearInvulnerability();
-            }
-        }
-
-        private void ClearInvulnerability()
-        {
-            IsInvulnerable = false;
-            _invulnerabilityTimer = 0f;
-        }
-
         public void ResetPlayerState()
         {
-            ClearInvulnerability();
+            _invulnerability.ClearInvulnerability();
             LivesRemaining = _startingLives;
             ActiveBombLimit = _startingActiveBombLimit;
         }
 
+        public void InitialPlayerSpawn() => SpawnPlayer();
+
         public void RespawnPlayer()
         {
-            transform.position = _startingPosition;
-            SetInvulnerability(_defaultInvulnerabilityDuration);
+            LoseLife();
+            SpawnPlayer();
         }
 
-        public void SetInvulnerability(float duration)
+        private void SpawnPlayer()
         {
-            IsInvulnerable = true;
-            _invulnerabilityTimer = Mathf.Max(0f, duration);
+            transform.position = _startingPosition;
+            _invulnerability.SetInvulnerability(_defaultInvulnerabilityDuration);
         }
 
         public void LoseLife() => LivesRemaining = Mathf.Max(0, LivesRemaining - 1);

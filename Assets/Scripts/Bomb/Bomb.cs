@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ExploderGuy.Bomb
+namespace ExploderGuy
 {
     public class Bomb : MonoBehaviour
     {
