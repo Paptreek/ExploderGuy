@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 namespace ExploderGuy.PlayArea
@@ -22,7 +25,13 @@ namespace ExploderGuy.PlayArea
 
         private void Awake()
         {
-            CreateInitialState();
+            _blockTilemap.ClearAllTiles();
+
+            GameObject[] softBlocks = GameObject.FindGameObjectsWithTag("SoftBlock");
+            foreach (GameObject softBlock in softBlocks)
+            {
+                Destroy(softBlock);
+            }
 
             _tileTypes[0, 10] = TileType.SpawnPoint;
             _tileTypes[1, 10] = TileType.SpawnPoint;
@@ -31,13 +40,27 @@ namespace ExploderGuy.PlayArea
 
         private void Start()
         {
-            QualitySettings.vSyncCount = 2;
-
+            CreateInitialState();
             PlaceAdditionalHardBlocks();
 
             if (_extraHardBlockCount >= 9)
             {
                 PlaceSoftBlocks();
+            }
+        }
+
+        private void Update()
+        {
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                if (Time.timeScale == 1)
+                {
+                    Time.timeScale = 0;
+                }
+                else
+                {
+                    Time.timeScale = 1;
+                }
             }
         }
 
@@ -102,6 +125,8 @@ namespace ExploderGuy.PlayArea
 
         private async void PlaceAdditionalHardBlocks()
         {
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+
             int x = 0;
             int y = 0;
 
@@ -121,7 +146,7 @@ namespace ExploderGuy.PlayArea
                             _blockTilemap.SetTile(location, _hardBlockTile);
                             _extraHardBlockCount++;
 
-                            await CheckForDeadEnds(x, y);
+                            await CheckForDeadEnds(x, y, tokenSource.Token);
                         }
 
                         x++;
@@ -140,7 +165,7 @@ namespace ExploderGuy.PlayArea
             _nodeGrid.ShowDebug = false;
         }
 
-        private async Task CheckForDeadEnds(int x, int y)
+        private async Task CheckForDeadEnds(int x, int y, CancellationToken token)
         {
             List<Vector3> positionsToCheck = new List<Vector3>();
 
@@ -155,17 +180,27 @@ namespace ExploderGuy.PlayArea
                     {
                         if (_tileTypes[xToCheck, yToCheck] == TileType.Empty)
                         {
-                            //await Task.Delay(100);
-                            await Task.Yield();
-                            _pathfinding.FindPath(_pathfinding.Seeker.position, new Vector3(xToCheck - 6, yToCheck - 5));
-
-                            if (_pathfinding.PathIsBlocked)
+                            if (!EditorApplication.isPlaying)
                             {
-                                Debug.Log("Found a dead end. Starting over!");
-                                _blockTilemap.ClearAllTiles();
-                                _extraHardBlockCount = 0;
-                                CreateInitialState();
+                                Debug.Log($"Not playing");
+
+                                token.ThrowIfCancellationRequested();
                             }
+                            else
+                            {
+                                await Task.Delay(100);
+                                //await Task.Yield();
+                                _pathfinding.FindPath(_pathfinding.Seeker.position, new Vector3(xToCheck - 6, yToCheck - 5));
+
+                                if (_pathfinding.PathIsBlocked)
+                                {
+                                    Debug.Log("Found a dead end. Starting over!");
+                                    _blockTilemap.ClearAllTiles();
+                                    _extraHardBlockCount = 0;
+                                    CreateInitialState();
+                                }
+                            }
+
                         }
                     }
                 }
