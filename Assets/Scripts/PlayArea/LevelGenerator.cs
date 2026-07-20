@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,9 +12,12 @@ namespace ExploderGuy.PlayArea
         [SerializeField] private SoftBlock _softBlock;
 
         [SerializeField] private Pathfinding _pathfinding;
+        [SerializeField] private NodeGrid _nodeGrid;
 
         private int _softBlockCount;
         private int _extraHardBlockCount;
+        private float _timer;
+        private Vector3 _positionToCheck;
         private TileType[,] _tileTypes = new TileType[13, 11];
 
         private void Awake()
@@ -93,7 +98,7 @@ namespace ExploderGuy.PlayArea
             Debug.Log($"SoftBlocks: {_softBlockCount}");
         }
 
-        private void PlaceAdditionalHardBlocks()
+        private async void PlaceAdditionalHardBlocks()
         {
             int x = 0;
             int y = 0;
@@ -108,11 +113,13 @@ namespace ExploderGuy.PlayArea
 
                         int random = Random.Range(1, 14);
 
-                        if (_tileTypes[x, y] == TileType.Empty && _extraHardBlockCount < 8 && random == 13 && IsClearOfTrappingPlayer(x, y))
+                        if (_tileTypes[x, y] == TileType.Empty && _extraHardBlockCount < 8 && random == 13)
                         {
                             _tileTypes[x, y] = TileType.HardBlock;
                             _blockTilemap.SetTile(location, _hardBlockTile);
                             _extraHardBlockCount++;
+
+                            await CheckForDeadEnds(x, y);
                         }
 
                         x++;
@@ -126,80 +133,38 @@ namespace ExploderGuy.PlayArea
                 x = 0;
             }
 
-            Debug.Log($"Extra HardBlocks: {_extraHardBlockCount}");
+            Debug.Log($"Extra HardBlocks: {_extraHardBlockCount}. ALL BLOCKS PLACED!");
+            PlaceSoftBlocks();
         }
 
-        private bool IsClearOfTrappingPlayer(int x, int y) // this helps prevent some issues, but it needs to be much better and cleaner.
+        private async Task CheckForDeadEnds(int x, int y)
         {
-            if (x >= 2 && x <= 10)
+            List<Vector3> positionsToCheck = new List<Vector3>();
+
+            for (int i = -1; i <= 1; i++)
             {
-                if (_tileTypes[x - 2, y] == TileType.Empty && _tileTypes[x + 2, y] == TileType.Empty)
+                for (int j = -1; j <= 1; j++)
                 {
-                    return true;
+                    int xToCheck = x + i;
+                    int yToCheck = y + j;
+
+                    if (xToCheck >= 0 && yToCheck >= 0 && xToCheck < 13 && yToCheck < 11)
+                    {
+                        if (_tileTypes[xToCheck, yToCheck] == TileType.Empty)
+                        {
+                            //await Task.Delay(500);
+                            await Task.Yield();
+                            _pathfinding.FindPath(_pathfinding.Seeker.position, new Vector3(xToCheck - 6, yToCheck - 5));
+
+                            if (_pathfinding.PathIsBlocked)
+                            {
+                                _blockTilemap.ClearAllTiles();
+                                _extraHardBlockCount = 0;
+                                CreateInitialState();
+                            }
+                        }
+                    }
                 }
-                else
-                {
-                    return false;
-                }
-            }
-            else if (y >= 2 && y <= 8)
-            {
-                if (_tileTypes[x, y - 2] == TileType.Empty && _tileTypes[x, y + 2] == TileType.Empty)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else if (x >= 2)
-            {
-                if (_tileTypes[x - 2, y] == TileType.Empty)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else if (x <= 10)
-            {
-                if (_tileTypes[x + 2, y] == TileType.Empty)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else if (y >= 2)
-            {
-                if (_tileTypes[x, y - 2] == TileType.Empty)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else if (y <= 8)
-            {
-                if (_tileTypes[x, y + 2] == TileType.Empty)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
             }
         }
     }

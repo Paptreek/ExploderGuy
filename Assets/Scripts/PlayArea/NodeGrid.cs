@@ -16,7 +16,7 @@ namespace ExploderGuy.PlayArea
 
         public List<Node> NodePath { get; set; }
 
-        private void Start()
+        private void Awake()
         {
             CreateGrid();
         }
@@ -140,7 +140,6 @@ namespace ExploderGuy.PlayArea
                     {
                         if (NodePath.Contains(node))
                         {
-                            Debug.Log(NodePath.Count);
                             Gizmos.color = Color.red;
                         }
                     }
