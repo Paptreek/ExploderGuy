@@ -1698,7 +1698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.PlayArea.Pathfinding
   <PathIsBlocked>k__BackingField: 0
   <Seeker>k__BackingField: {fileID: 2017216452}
-  <Target>k__BackingField: {fileID: 920770255}
+  <Target>k__BackingField: {fileID: 0}
 --- !u!1 &2144886328
 GameObject:
   m_ObjectHideFlags: 0

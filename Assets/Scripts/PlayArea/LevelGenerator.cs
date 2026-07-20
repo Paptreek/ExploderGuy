@@ -31,6 +31,8 @@ namespace ExploderGuy.PlayArea
 
         private void Start()
         {
+            QualitySettings.vSyncCount = 2;
+
             PlaceAdditionalHardBlocks();
 
             if (_extraHardBlockCount >= 9)
@@ -153,8 +155,8 @@ namespace ExploderGuy.PlayArea
                     {
                         if (_tileTypes[xToCheck, yToCheck] == TileType.Empty)
                         {
-                            await Task.Delay(100);
-                            //await Task.Yield();
+                            //await Task.Delay(100);
+                            await Task.Yield();
                             _pathfinding.FindPath(_pathfinding.Seeker.position, new Vector3(xToCheck - 6, yToCheck - 5));
 
                             if (_pathfinding.PathIsBlocked)

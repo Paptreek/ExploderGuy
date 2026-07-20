@@ -14,7 +14,7 @@ namespace ExploderGuy.PlayArea
         [field: SerializeField] public Vector2 WorldSize { get; set; }
         [field: SerializeField] public float NodeRadius { get; set; }
 
-        public bool ShowDebug { get; set; } = true;
+        public bool ShowDebug { get; set; } = false;
         public List<Node> NodePath { get; set; }
 
         private void Awake()
