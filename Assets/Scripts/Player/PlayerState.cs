@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ExploderGuy
@@ -29,7 +30,15 @@ namespace ExploderGuy
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!_invulnerability.IsInvulnerable && collision.CompareTag($"Explosion"))
+            if (collision.CompareTag($"Explosion"))
+            {
+                RespawnPlayer();
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
             {
                 RespawnPlayer();
             }
