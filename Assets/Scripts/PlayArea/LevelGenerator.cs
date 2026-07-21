@@ -13,14 +13,14 @@ namespace ExploderGuy.PlayArea
         [SerializeField] private Tilemap _blockTilemap;
         [SerializeField] private Tile _hardBlockTile;
         [SerializeField] private SoftBlock _softBlock;
+        [SerializeField] private Transform _exitPortalTransform;
 
         [SerializeField] private Pathfinding _pathfinding;
         [SerializeField] private NodeGrid _nodeGrid;
 
         private int _softBlockCount;
         private int _extraHardBlockCount;
-        private float _timer;
-        private Vector3 _positionToCheck;
+        private List<SoftBlock> _softBlocks = new List<SoftBlock>();
         private TileType[,] _tileTypes = new TileType[13, 11];
 
         private void Awake()
@@ -94,7 +94,8 @@ namespace ExploderGuy.PlayArea
             int x = 0;
             int y = 0;
 
-            while (_softBlockCount < 33)
+            //while (_softBlockCount < 33)
+            while (_softBlocks.Count < 33)
             {
                 for (int i = 0; i < 11; i++)
                 {
@@ -102,11 +103,13 @@ namespace ExploderGuy.PlayArea
                     {
                         int random = Random.Range(1, 11);
 
-                        if (_tileTypes[x, y] == TileType.Empty && random == 10 && _softBlockCount < 33)
+                        //if (_tileTypes[x, y] == TileType.Empty && random == 10 && _softBlockCount < 33)
+                        if (_tileTypes[x, y] == TileType.Empty && random == 10 && _softBlocks.Count < 33)
                         {
-                            Instantiate(_softBlock, new Vector3(x - 6, y - 5), Quaternion.identity);
+                            SoftBlock softBlock = Instantiate(_softBlock, new Vector3(x - 6, y - 5), Quaternion.identity);
                             _tileTypes[x, y] = TileType.SoftBlock;
-                            _softBlockCount++;
+                            _softBlocks.Add(softBlock);
+                            //_softBlockCount++;
                         }
 
                         x++;
@@ -120,7 +123,9 @@ namespace ExploderGuy.PlayArea
                 y = 0;
             }
 
-            Debug.Log($"SoftBlocks: {_softBlockCount}");
+            //Debug.Log($"SoftBlocks: {_softBlockCount}");
+            Debug.Log($"SoftBlocks: {_softBlocks.Count}");
+            PlaceExitPortal();
         }
 
         private async void PlaceAdditionalHardBlocks()
@@ -188,8 +193,8 @@ namespace ExploderGuy.PlayArea
                             }
                             else
                             {
-                                await Task.Delay(100);
-                                //await Task.Yield();
+                                //await Task.Delay(100);
+                                await Task.Yield();
                                 _pathfinding.FindPath(_pathfinding.Seeker.position, new Vector3(xToCheck - 6, yToCheck - 5));
 
                                 if (_pathfinding.PathIsBlocked)
@@ -205,6 +210,12 @@ namespace ExploderGuy.PlayArea
                     }
                 }
             }
+        }
+
+        private void PlaceExitPortal()
+        {
+            int random = Random.Range(0, _softBlocks.Count);
+            _exitPortalTransform.position = _softBlocks[random].transform.position;
         }
     }
 
