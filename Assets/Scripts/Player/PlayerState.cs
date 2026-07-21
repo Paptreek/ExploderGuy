@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ExploderGuy
@@ -19,26 +20,35 @@ namespace ExploderGuy
         {
             _invulnerability = GetComponent<PlayerInvulnerability>();
             _startingPosition = transform.position;
-            ResetPlayerState();
-            InitialPlayerSpawn();
+            InitializePlayerState();
+        }
+
+        private void Start()
+        {
+            SpawnPlayer();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!_invulnerability.IsInvulnerable && collision.CompareTag($"Explosion"))
+            if (collision.CompareTag($"Explosion"))
             {
                 RespawnPlayer();
             }
         }
 
-        public void ResetPlayerState()
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            _invulnerability.ClearInvulnerability();
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                RespawnPlayer();
+            }
+        }
+
+        private void InitializePlayerState()
+        {
             LivesRemaining = _startingLives;
             ActiveBombLimit = _startingActiveBombLimit;
         }
-
-        public void InitialPlayerSpawn() => SpawnPlayer();
 
         public void RespawnPlayer()
         {

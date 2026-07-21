@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8578534854809800967}
   - component: {fileID: 5308424302130119497}
   - component: {fileID: 5944839135036927895}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BombExitDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 7182136674785989940}
   - component: {fileID: 6522978792572505898}
   - component: {fileID: 5029266764190203471}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}

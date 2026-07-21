@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Explosion
   - SoftBlock
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -15,13 +16,13 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - PlayerInvulnerable
+  - Enemy
+  - Bomb
+  - Explosion
+  - HardBarrier
+  - SoftBarrier
   - 
   - 
   - 

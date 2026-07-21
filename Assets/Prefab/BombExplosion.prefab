@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7727742659879168348}
   - component: {fileID: 4832361212839945612}
   - component: {fileID: 8278268424622867669}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: South
   m_TagString: Explosion
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 262102771890305000}
   - component: {fileID: 7824122150844024406}
   - component: {fileID: 437500118142010978}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: East
   m_TagString: Explosion
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 5385571610850270996}
   - component: {fileID: 5415822380956528224}
   - component: {fileID: 1321263699471948001}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Center
   m_TagString: Explosion
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 4443499876977282720}
   - component: {fileID: 578826978246777769}
   - component: {fileID: 4944067055144227384}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: North
   m_TagString: Explosion
   m_Icon: {fileID: 0}
@@ -593,7 +593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5078242234069273279}
   - component: {fileID: 2919434946076376962}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BombExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,7 +643,7 @@ GameObject:
   - component: {fileID: 8711487320546304684}
   - component: {fileID: 7545827676954020911}
   - component: {fileID: 8900190657997388726}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: West
   m_TagString: Explosion
   m_Icon: {fileID: 0}
