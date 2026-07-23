@@ -7,6 +7,7 @@ namespace ExploderGuy
     {
         [SerializeField] private float _explosionTimer = 2f;
         [SerializeField] private GameObject _bombExplosionPrefab;
+        [SerializeField] private int _explosionRange;
 
         private Collider2D _bombCollider;
         private Collider2D _playerCollider;
