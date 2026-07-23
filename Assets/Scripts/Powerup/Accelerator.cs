@@ -2,7 +2,7 @@
 
 namespace ExploderGuy
 {
-    public class Accelerator : MonoBehaviour, IPowerUp
+    public class Accelerator : MonoBehaviour
     {
         [field: SerializeField] public bool IsPermanent { get; private set; } = true;
         [field: SerializeField] public int PointValue { get; private set; } = 100;

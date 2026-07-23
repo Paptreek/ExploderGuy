@@ -4,11 +4,19 @@ namespace ExploderGuy
 {
     public class BombExplosion : MonoBehaviour
     {
-        private int _blastRange;
+        [SerializeField] private ExplosionSegment[] _explosionSegments;
 
-        public void Initialize(int blastRange)
+        public void Initialize(int blastRadius)
         {
-            _blastRange = blastRange;
+            SetExplosionSegmentLength(blastRadius);
+        }
+
+        private void SetExplosionSegmentLength(int length)
+        {
+            foreach (ExplosionSegment segment in _explosionSegments)
+            {
+                segment.SetLength(length);
+            }
         }
     }
 }

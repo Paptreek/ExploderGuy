@@ -5,12 +5,12 @@ namespace ExploderGuy
 {
     public class Bomb : MonoBehaviour
     {
-        [SerializeField] private float _explosionTimer = 2f;
-        [SerializeField] private GameObject _bombExplosionPrefab;
-        [SerializeField] private int _explosionRange;
+        [SerializeField] private float _fuseTimer = 2f;
+        [SerializeField] private BombExplosion _bombExplosionPrefab;
 
         private Collider2D _bombCollider;
         private Collider2D _playerCollider;
+        private int _blastRadius;
 
         public event Action<Bomb> Exploded;
 
@@ -21,22 +21,24 @@ namespace ExploderGuy
 
         private void Update()
         {
-            _explosionTimer -= Time.deltaTime;
-            if (_explosionTimer <= 0)
+            _fuseTimer -= Time.deltaTime;
+            if (_fuseTimer <= 0)
             {
                 Explode();
             }
         }
 
-        public void Initialize(Collider2D playerCollider)
+        public void Initialize(BombPlacementContext context)
         {
-            _playerCollider = playerCollider;
+            _playerCollider = context.OwnerCollider;
+            _blastRadius = context.BlastRadius;
             IgnorePlayerCollision();
         }
 
         private void Explode()
         {
-            Instantiate(_bombExplosionPrefab, transform.position, transform.rotation);
+            BombExplosion explosion = Instantiate(_bombExplosionPrefab, transform.position, transform.rotation);
+            explosion.Initialize(_blastRadius);
             Exploded?.Invoke(this);
             Destroy(gameObject);
         }
