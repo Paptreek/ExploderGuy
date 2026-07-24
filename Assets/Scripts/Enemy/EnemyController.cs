@@ -6,17 +6,17 @@ namespace ExploderGuy
     {
         private void Awake()
         {
-            
+
         }
 
         void Start()
         {
-            
+
         }
 
         void Update()
         {
-            
+
         }
     }
 }

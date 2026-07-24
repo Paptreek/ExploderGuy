@@ -1,7 +1,7 @@
-namespace ExploderGuy
+﻿namespace ExploderGuy
 {
     public interface IPowerUp
     {
-        void Apply(PlayerState playerState);
+        void Apply(PlayerPowerUpReceiver receiver);
     }
 }

@@ -7,9 +7,9 @@ namespace ExploderGuy
         [field: SerializeField] public bool IsPermanent { get; private set; } = true;
         [field: SerializeField] public int PointValue { get; private set; } = 100;
 
-        public void Apply(PlayerState playerState)
+        public void Apply(PlayerPowerUpReceiver receiver)
         {
-            playerState.IncreaseBombLimit();
+            receiver.IncreaseBombLimit();
         }
     }
 }
