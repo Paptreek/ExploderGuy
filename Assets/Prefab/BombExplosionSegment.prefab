@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4699636909710411069}
   - component: {fileID: 3191143343554887090}
   m_Layer: 12
-  m_Name: BombExplosionArm
+  m_Name: BombExplosionSegment
   m_TagString: Explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

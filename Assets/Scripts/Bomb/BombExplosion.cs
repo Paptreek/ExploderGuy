@@ -4,7 +4,7 @@ namespace ExploderGuy
 {
     public class BombExplosion : MonoBehaviour
     {
-        [SerializeField] private ExplosionSegment[] _explosionSegments;
+        [SerializeField] private BombExplosionSegment[] _explosionSegments;
 
         public void Initialize(int blastRadius)
         {
@@ -13,7 +13,7 @@ namespace ExploderGuy
 
         private void SetExplosionSegmentLength(int length)
         {
-            foreach (ExplosionSegment segment in _explosionSegments)
+            foreach (BombExplosionSegment segment in _explosionSegments)
             {
                 segment.SetLength(length);
             }
