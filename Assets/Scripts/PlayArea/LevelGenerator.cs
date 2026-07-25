@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 namespace ExploderGuy.PlayArea
@@ -14,12 +13,13 @@ namespace ExploderGuy.PlayArea
         [SerializeField] private Tile _hardBlockTile;
         [SerializeField] private SoftBlock _softBlock;
         [SerializeField] private Transform _exitPortalTransform;
+        [SerializeField] private GameObject _enemy;
 
         [SerializeField] private Pathfinding _pathfinding;
         [SerializeField] private NodeGrid _nodeGrid;
 
-        private int _softBlockCount;
         private int _extraHardBlockCount;
+        private int _enemyCount;
         private List<SoftBlock> _softBlocks = new List<SoftBlock>();
         private TileType[,] _tileTypes = new TileType[13, 11];
 
@@ -51,16 +51,9 @@ namespace ExploderGuy.PlayArea
 
         private void Update()
         {
-            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (_softBlocks.Count >= 33)
             {
-                if (Time.timeScale == 1)
-                {
-                    Time.timeScale = 0;
-                }
-                else
-                {
-                    Time.timeScale = 1;
-                }
+                PlaceEnemies();
             }
         }
 
@@ -94,22 +87,19 @@ namespace ExploderGuy.PlayArea
             int x = 0;
             int y = 0;
 
-            //while (_softBlockCount < 33)
             while (_softBlocks.Count < 33)
             {
                 for (int i = 0; i < 11; i++)
                 {
                     for (int j = 0; j < 13; j++)
                     {
-                        int random = Random.Range(1, 11);
+                        int random = Random.Range(1, 14);
 
-                        //if (_tileTypes[x, y] == TileType.Empty && random == 10 && _softBlockCount < 33)
-                        if (_tileTypes[x, y] == TileType.Empty && random == 10 && _softBlocks.Count < 33)
+                        if (_tileTypes[x, y] == TileType.Empty && random == 13 && _softBlocks.Count < 33)
                         {
                             SoftBlock softBlock = Instantiate(_softBlock, new Vector3(x - 6, y - 5), Quaternion.identity);
                             _tileTypes[x, y] = TileType.SoftBlock;
                             _softBlocks.Add(softBlock);
-                            //_softBlockCount++;
                         }
 
                         x++;
@@ -123,7 +113,6 @@ namespace ExploderGuy.PlayArea
                 y = 0;
             }
 
-            //Debug.Log($"SoftBlocks: {_softBlockCount}");
             Debug.Log($"SoftBlocks: {_softBlocks.Count}");
             PlaceExitPortal();
         }
@@ -217,7 +206,28 @@ namespace ExploderGuy.PlayArea
             int random = Random.Range(0, _softBlocks.Count);
             _exitPortalTransform.position = _softBlocks[random].transform.position;
         }
+
+        private void PlaceEnemies()
+        {
+            while (_enemyCount < 3)
+            {
+                int randomX = Random.Range(0, 13);
+                int randomY = Random.Range(0, 11);
+
+                if (_tileTypes[randomX, randomY] == TileType.Empty)
+                {
+                    Instantiate(_enemy, new Vector3(randomX - 6, randomY - 5), Quaternion.identity);
+                    _tileTypes[randomX, randomY] = TileType.Enemy;
+                    _enemyCount++;
+                }
+
+                if (_enemyCount == 3)
+                {
+                    Debug.Log($"Enemies: {_enemyCount}");
+                }
+            }
+        }
     }
 
-    public enum TileType { Empty, HardBlock, SoftBlock, SpawnPoint }
+    public enum TileType { Empty, HardBlock, SoftBlock, SpawnPoint, Enemy }
 }
