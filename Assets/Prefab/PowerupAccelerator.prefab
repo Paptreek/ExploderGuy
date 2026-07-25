@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 8836712664450060656}
   - component: {fileID: 6943279616764826123}
   - component: {fileID: 8277767315637237721}
-  - component: {fileID: 6181764961000253410}
-  - component: {fileID: 1559535139883884495}
-  - component: {fileID: 6077564920593367708}
+  - component: {fileID: 8221690668257519027}
+  - component: {fileID: 8921204999764309217}
   m_Layer: 0
   m_Name: PowerupAccelerator
   m_TagString: Untagged
@@ -132,7 +131,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &6181764961000253410
+--- !u!114 &8221690668257519027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36415dd0765b41eb9d8337a308cbf7d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.Accelerator
---- !u!114 &1559535139883884495
+  <IsPermanent>k__BackingField: 1
+  <PointValue>k__BackingField: 100
+--- !u!114 &8921204999764309217
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,15 +157,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042af0de576f6204c9b221212153c7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.DestroyOnExplosion
---- !u!114 &6077564920593367708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5281429296589213384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 150c1d993c464df6acb989fe1f48d020, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.PlayerPickup

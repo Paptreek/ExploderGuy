@@ -148,6 +148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5078242234069273279}
+  - component: {fileID: 2370520263224380879}
   - component: {fileID: 2919434946076376962}
   - component: {fileID: 8826646743435907023}
   m_Layer: 12
@@ -170,13 +171,30 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7727742659879168348}
+  - {fileID: 5385571610850270996}
   - {fileID: 959105121440467078}
+  - {fileID: 7727742659879168348}
   - {fileID: 343950100896740951}
   - {fileID: 2258031810661955960}
-  - {fileID: 5385571610850270996}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2370520263224380879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7745063166472210689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98209bb6f48f2f2459786d15be0c30b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.BombExplosion
+  _explosionSegments:
+  - {fileID: 1260106428387795165}
+  - {fileID: 8578746071049617671}
+  - {fileID: 1798719467700805132}
+  - {fileID: 244745721335746851}
 --- !u!114 &2919434946076376962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +295,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12f075e7c07c053469d62255fd61c49b, type: 3}
+--- !u!114 &244745721335746851 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3191143343554887090, guid: 12f075e7c07c053469d62255fd61c49b, type: 3}
+  m_PrefabInstance: {fileID: 3399290939874962577}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58315cb71432ccf40929de697479a59a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.BombExplosionArm
 --- !u!4 &2258031810661955960 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3493270412634805737, guid: 12f075e7c07c053469d62255fd61c49b, type: 3}
@@ -348,6 +377,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3493270412634805737, guid: 12f075e7c07c053469d62255fd61c49b, type: 3}
   m_PrefabInstance: {fileID: 3800864524816491454}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1798719467700805132 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3191143343554887090, guid: 12f075e7c07c053469d62255fd61c49b, type: 3}
+  m_PrefabInstance: {fileID: 3800864524816491454}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58315cb71432ccf40929de697479a59a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.BombExplosionArm
 --- !u!1001 &4410708385554324847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -414,6 +454,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3493270412634805737, guid: 12f075e7c07c053469d62255fd61c49b, type: 3}
   m_PrefabInstance: {fileID: 4410708385554324847}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1260106428387795165 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3191143343554887090, guid: 12f075e7c07c053469d62255fd61c49b, type: 3}
+  m_PrefabInstance: {fileID: 4410708385554324847}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58315cb71432ccf40929de697479a59a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.BombExplosionArm
 --- !u!1001 &6576631975208041653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -480,3 +531,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3493270412634805737, guid: 12f075e7c07c053469d62255fd61c49b, type: 3}
   m_PrefabInstance: {fileID: 6576631975208041653}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8578746071049617671 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3191143343554887090, guid: 12f075e7c07c053469d62255fd61c49b, type: 3}
+  m_PrefabInstance: {fileID: 6576631975208041653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58315cb71432ccf40929de697479a59a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.BombExplosionArm

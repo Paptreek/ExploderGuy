@@ -234,5 +234,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def43f3a8a0532c4ea5b324eaea189a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.Bomb
-  _explosionTimer: 2
-  _bombExplosionPrefab: {fileID: 7745063166472210689, guid: ab9b20c03e289904e9df6bf30517ed5a, type: 3}
+  _fuseTimer: 2
+  _bombExplosionPrefab: {fileID: 2370520263224380879, guid: ab9b20c03e289904e9df6bf30517ed5a, type: 3}

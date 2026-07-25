@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 6943279616764826123}
   - component: {fileID: 8277767315637237721}
   - component: {fileID: -3276688537019566797}
-  - component: {fileID: 8358962202980689868}
-  - component: {fileID: -8785409662912357311}
+  - component: {fileID: 8257741981844803885}
   m_Layer: 0
   m_Name: PowerupExtraBomb
   m_TagString: Untagged
@@ -144,7 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02787bd619854f58be391c2aac9589ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.ExtraBomb
---- !u!114 &8358962202980689868
+  <IsPermanent>k__BackingField: 1
+  <PointValue>k__BackingField: 100
+--- !u!114 &8257741981844803885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,15 +157,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042af0de576f6204c9b221212153c7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.DestroyOnExplosion
---- !u!114 &-8785409662912357311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5281429296589213384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 150c1d993c464df6acb989fe1f48d020, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.PlayerPickup
