@@ -2,14 +2,14 @@
 
 namespace ExploderGuy
 {
-    public class Accelerator : MonoBehaviour, IPowerUp
+    public class PowerUpExtraBomb : MonoBehaviour, IPowerUp
     {
         [field: SerializeField] public bool IsPermanent { get; private set; } = true;
         [field: SerializeField] public int PointValue { get; private set; } = 100;
 
         public void Apply(PlayerPowerUpReceiver receiver)
         {
-            receiver.AddMoveSpeedLevel();
+            receiver.IncreaseBombLimit();
         }
     }
 }

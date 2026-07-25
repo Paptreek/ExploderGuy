@@ -204,7 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExploderGuy.Bomb.BombPlacer
   _bombPrefab: {fileID: -8434820640202794858, guid: a07e061a5fb06b442b649f213f64e86e, type: 3}
   _startingBombLimit: 1
-  _startingBlastRadius: 4
+  _startingBlastRadius: 1
 --- !u!114 &6027228593709593841
 MonoBehaviour:
   m_ObjectHideFlags: 0

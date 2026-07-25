@@ -13,14 +13,19 @@ namespace ExploderGuy
             _playerState = GetComponent<PlayerState>();
         }
 
-        public void AddMoveSpeedLevel()
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            _playerState.AddMoveSpeedLevel();
+            if (!collision.TryGetComponent(out IPowerUp powerUp))
+            {
+                return;
+            }
+
+            powerUp.Apply(this);
+            Destroy(collision.gameObject);
         }
 
-        public void IncreaseBombLimit()
-        {
-            _bombPlacer.IncreaseBombLimit();
-        }
+        public void AddMoveSpeedLevel() => _playerState.AddMoveSpeedLevel();
+        public void IncreaseBombLimit() => _bombPlacer.IncreaseBombLimit();
+        public void IncreaseBlastRadius() => _bombPlacer.IncreaseBlastRadius();
     }
 }
