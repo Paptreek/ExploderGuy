@@ -4,19 +4,12 @@ namespace ExploderGuy
 {
     public class EnemyController : MonoBehaviour
     {
-        private void Awake()
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            
-        }
-
-        void Start()
-        {
-            
-        }
-
-        void Update()
-        {
-            
+            if (collision.CompareTag($"Explosion"))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
