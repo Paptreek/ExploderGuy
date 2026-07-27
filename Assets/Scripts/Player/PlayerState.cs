@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace ExploderGuy
@@ -7,14 +6,15 @@ namespace ExploderGuy
     {
         [SerializeField] private int _startingLives = 3;
         [SerializeField] private int _maximumLives = 9;
-        [SerializeField] private int _startingActiveBombLimit = 1;
         [SerializeField] private float _defaultInvulnerabilityDuration = 10f;
+        [SerializeField] private float _baseMoveSpeed = 3f;
 
         private Vector3 _startingPosition;
         private PlayerInvulnerability _invulnerability;
 
         public int LivesRemaining { get; private set; }
-        public int ActiveBombLimit { get; private set; }
+        public int MoveSpeedLevel { get; private set; }
+        public float MoveSpeed => _baseMoveSpeed * MoveSpeedLevel;
 
         private void Awake()
         {
@@ -47,7 +47,7 @@ namespace ExploderGuy
         private void InitializePlayerState()
         {
             LivesRemaining = _startingLives;
-            ActiveBombLimit = _startingActiveBombLimit;
+            MoveSpeedLevel = 1;
         }
 
         public void RespawnPlayer()
@@ -62,8 +62,14 @@ namespace ExploderGuy
             _invulnerability.SetInvulnerability(_defaultInvulnerabilityDuration);
         }
 
-        public void LoseLife() => LivesRemaining = Mathf.Max(0, LivesRemaining - 1);
+        public void LoseLife()
+        {
+            LivesRemaining = Mathf.Max(0, LivesRemaining - 1);
+            ReduceMoveSpeedLevel();
+        }
         public void AddLife() => LivesRemaining = Mathf.Min(LivesRemaining + 1, _maximumLives);
-        public void IncreaseBombLimit() => ActiveBombLimit++;
+        public void AddMoveSpeedLevel() => MoveSpeedLevel++;
+
+        public void ReduceMoveSpeedLevel() => MoveSpeedLevel = Mathf.Max(1, MoveSpeedLevel - 1);
     }
 }

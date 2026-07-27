@@ -1,21 +1,46 @@
+using System;
 using UnityEngine;
 
 namespace ExploderGuy
 {
     public class Bomb : MonoBehaviour
     {
+        [SerializeField] private float _fuseTimer = 2f;
+        [SerializeField] private BombExplosion _bombExplosionPrefab;
+
         private Collider2D _bombCollider;
         private Collider2D _playerCollider;
+        private int _blastRadius;
+
+        public event Action<Bomb> Exploded;
 
         private void Awake()
         {
             _bombCollider = GetComponent<Collider2D>();
         }
 
-        public void Initialize(Collider2D playerCollider)
+        private void Update()
         {
-            _playerCollider = playerCollider;
+            _fuseTimer -= Time.deltaTime;
+            if (_fuseTimer <= 0)
+            {
+                Explode();
+            }
+        }
+
+        public void Initialize(BombPlacementContext context)
+        {
+            _playerCollider = context.OwnerCollider;
+            _blastRadius = context.BlastRadius;
             IgnorePlayerCollision();
+        }
+
+        private void Explode()
+        {
+            BombExplosion explosion = Instantiate(_bombExplosionPrefab, transform.position, transform.rotation);
+            explosion.Initialize(_blastRadius);
+            Exploded?.Invoke(this);
+            Destroy(gameObject);
         }
 
         public void RestorePlayerCollision() => SetPlayerCollisionIgnored(false);
