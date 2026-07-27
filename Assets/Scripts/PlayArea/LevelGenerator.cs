@@ -13,7 +13,7 @@ namespace ExploderGuy.PlayArea
         [SerializeField] private Tile _hardBlockTile;
         [SerializeField] private SoftBlock _softBlock;
         [SerializeField] private Transform _exitPortalTransform;
-        [SerializeField] private GameObject _enemy;
+        [SerializeField] private EnemyController _enemy;
 
         [SerializeField] private Pathfinding _pathfinding;
         [SerializeField] private NodeGrid _nodeGrid;
@@ -55,6 +55,11 @@ namespace ExploderGuy.PlayArea
             {
                 PlaceEnemies();
             }
+        }
+
+        public TileType GetTileType(int x, int y)
+        {
+            return _tileTypes[x, y];
         }
 
         private void CreateInitialState()
@@ -216,7 +221,8 @@ namespace ExploderGuy.PlayArea
 
                 if (_tileTypes[randomX, randomY] == TileType.Empty)
                 {
-                    Instantiate(_enemy, new Vector3(randomX - 6, randomY - 5), Quaternion.identity);
+                    EnemyController enemy = Instantiate(_enemy, new Vector3(randomX - 6, randomY - 5), Quaternion.identity);
+                    enemy.SetLevelGenerator(this);
                     _tileTypes[randomX, randomY] = TileType.Enemy;
                     _enemyCount++;
                 }

@@ -1344,6 +1344,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5087321483299418299, guid: 1e408a602a2b7d147863f30fa3dffc68, type: 3}
+      propertyPath: _startingBombLimit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5087321483299418299, guid: 1e408a602a2b7d147863f30fa3dffc68, type: 3}
+      propertyPath: _startingBlastRadius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7625079166862911322, guid: 1e408a602a2b7d147863f30fa3dffc68, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1433,7 +1441,7 @@ MonoBehaviour:
   _hardBlockTile: {fileID: 11400000, guid: 9bab7d6523b3e344187f61cf3af21afe, type: 2}
   _softBlock: {fileID: 2301519507965686398, guid: d9d80536cc21a1d4aaf689d5d5611453, type: 3}
   _exitPortalTransform: {fileID: 1890557194}
-  _enemy: {fileID: 2876455741881522318, guid: 6d11c321739741f48aa955a92e8cce9f, type: 3}
+  _enemy: {fileID: 7021280095585909606, guid: 6d11c321739741f48aa955a92e8cce9f, type: 3}
   _pathfinding: {fileID: 2053934373}
   _nodeGrid: {fileID: 2053934371}
 --- !u!4 &1853935851
