@@ -12,9 +12,9 @@ namespace ExploderGuy
             int positionX = Mathf.FloorToInt(transform.position.x + 6);
             int positionY = Mathf.FloorToInt(transform.position.y + 5);
 
-            if (positionX + 1 > 0 && positionY + 1 > 0 && positionX + 1 < 13 && positionY < 11)
+            if (positionX + 1 > 0 && positionY >= 0 && positionX + 1 < 13 && positionY < 11)
             {
-                Debug.Log(_levelGenerator.GetTileType(positionX + 1, positionY));
+                Debug.Log($"{positionX + 1}, {positionY}, {_levelGenerator.GetTileType(positionX + 1, positionY)}");
             }
         }
 
