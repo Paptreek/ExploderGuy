@@ -6,21 +6,27 @@ namespace ExploderGuy
     public class EnemyController : MonoBehaviour
     {
         private LevelGenerator _levelGenerator;
+        private int _positionX;
+        private int _positionY;
+
+        // temp for movement testing
+        private bool _canMoveLeft;
 
         private void Start()
         {
-            int positionX = Mathf.FloorToInt(transform.position.x + 6);
-            int positionY = Mathf.FloorToInt(transform.position.y + 5);
+            _positionX = Mathf.FloorToInt(transform.position.x + 6);
+            _positionY = Mathf.FloorToInt(transform.position.y + 5);
 
-            if (positionX + 1 > 0 && positionY >= 0 && positionX + 1 < 13 && positionY < 11)
-            {
-                Debug.Log($"{positionX + 1}, {positionY}, {_levelGenerator.GetTileType(positionX + 1, positionY)}");
-            }
+            ChooseAdjacentEmptyTile();
         }
 
         private void Update()
         {
-
+            // temp for movement testing
+            if (_canMoveLeft)
+            {
+                Move();
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -36,9 +42,20 @@ namespace ExploderGuy
             _levelGenerator = levelGenerator;
         }
 
-        private void FindAdjacentEmptyTiles()
+        private void ChooseAdjacentEmptyTile()
         {
-            
+            if (_positionX - 1 >= 0)
+            {
+                Vector2Int leftTileLocation = new Vector2Int(_positionX - 1, _positionY);
+                TileType leftTileType = _levelGenerator.GetTileType(leftTileLocation.x, leftTileLocation.y);
+
+                if (leftTileType == TileType.Empty)
+                {
+                    Debug.Log($"{leftTileLocation} is {leftTileType}!");
+                    _canMoveLeft = true;
+                }
+
+            }
         }
 
         private void ChooseRandomMovementDirection()
@@ -48,7 +65,10 @@ namespace ExploderGuy
 
         private void Move()
         {
-
+            // temp for movement testing
+            transform.Translate(new Vector3(-1 * Time.deltaTime, 0));
         }
     }
+
+    public enum DirectionToMove { None, Left, Up, Right, Down }
 }
