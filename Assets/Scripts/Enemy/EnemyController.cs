@@ -1,5 +1,6 @@
+using System.Collections.Generic;
 using ExploderGuy.PlayArea;
-using Mono.Cecil.Cil;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace ExploderGuy
@@ -10,9 +11,20 @@ namespace ExploderGuy
         private int _positionX;
         private int _positionY;
 
+        private Vector2Int _leftTileLocation;
+        private Vector2Int _topTileLocation;
+        private Vector2Int _rightTileLocation;
+        private Vector2Int _bottomTileLocation;
+        private TileType _leftTileType = TileType.HardBlock;
+        private TileType _topTileType = TileType.HardBlock;
+        private TileType _rightTileType = TileType.HardBlock;
+        private TileType _bottomTileType = TileType.HardBlock;
+
         // temp for movement testing
         private bool _canMoveLeft;
         private bool _canMoveUp;
+        private bool _canMoveRight;
+        private bool _canMoveDown;
 
         private void Start()
         {
@@ -42,32 +54,57 @@ namespace ExploderGuy
 
         private void FindAdjacentEmptyTile()
         {
-            if (_positionX - 1 >= 0 && _positionY + 1 <= 10)
+            if (_positionX - 1 >= 0)
             {
-                Vector2Int leftTileLocation = new Vector2Int(_positionX - 1, _positionY);
-                Vector2Int topTileLocation = new Vector2Int(_positionX, _positionY + 1);
-
-                TileType leftTileType = _levelGenerator.GetTileType(leftTileLocation.x, leftTileLocation.y);
-                TileType topTileType = _levelGenerator.GetTileType(topTileLocation.x, topTileLocation.y);
-
-                if (leftTileType == TileType.Empty)
-                {
-                    Debug.Log($"{leftTileLocation} is {leftTileType} (left)!");
-                    _canMoveLeft = true;
-                }
-
-                // TODO: perhaps can use a bool for this instead of making sure other tiles aren't empty?
-                if (leftTileType != TileType.Empty && topTileType == TileType.Empty)
-                {
-                    Debug.Log($"{topTileLocation} is {topTileType} (top)");
-                    _canMoveUp = true;
-                }
+                _leftTileLocation = new Vector2Int(_positionX - 1, _positionY);
+                _leftTileType = _levelGenerator.GetTileType(_leftTileLocation.x, _leftTileLocation.y);
             }
+
+            if (_positionX + 1 <= 12)
+            {
+                _rightTileLocation = new Vector2Int(_positionX + 1, _positionY);
+                _rightTileType = _levelGenerator.GetTileType(_rightTileLocation.x, _rightTileLocation.y);
+            }
+
+            if (_positionY + 1 <= 10)
+            {
+                _topTileLocation = new Vector2Int(_positionX, _positionY + 1);
+                _topTileType = _levelGenerator.GetTileType(_topTileLocation.x, _topTileLocation.y);
+            }
+
+            if (_positionY - 1 >= 0)
+            {
+                _bottomTileLocation = new Vector2Int(_positionX, _positionY - 1);
+                _bottomTileType = _levelGenerator.GetTileType(_bottomTileLocation.x, _bottomTileLocation.y);
+            }
+
+            Debug.Log($"Left: {_leftTileType}, {_leftTileLocation}, Right: {_rightTileType}, {_rightTileLocation}");
+
+            ChooseRandomMovementDirection();
         }
 
         private void ChooseRandomMovementDirection()
         {
-
+            if (_leftTileType == TileType.Empty)
+            {
+                Debug.Log($"{_leftTileLocation} is {_leftTileType} (left)!");
+                _canMoveLeft = true;
+            }
+            //else if (_topTileType == TileType.Empty)
+            //{
+            //    Debug.Log($"{_topTileLocation} is {_topTileType} (top)");
+            //    _canMoveUp = true;
+            //}
+            else if (_rightTileType == TileType.Empty)
+            {
+                Debug.Log($"{_rightTileLocation} is {_rightTileType} (right)");
+                _canMoveRight = true;
+            }
+            //else if (_bottomTileType == TileType.Empty)
+            //{
+            //    Debug.Log($"{_bottomTileLocation} is {_bottomTileType} (bottom)");
+            //    _canMoveDown = true;
+            //}
         }
 
         private void Move()
@@ -80,6 +117,16 @@ namespace ExploderGuy
             if (_canMoveUp)
             {
                 transform.Translate(new Vector3(0, 0.5f * Time.deltaTime));
+            }
+
+            if (_canMoveRight)
+            {
+                transform.Translate(new Vector3(0.5f * Time.deltaTime, 0));
+            }
+
+            if (_canMoveDown)
+            {
+                transform.Translate(new Vector3(0, -0.5f * Time.deltaTime));
             }
         }
     }
