@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using ExploderGuy.PlayArea;
-using NUnit.Framework;
 using UnityEngine;
 
 namespace ExploderGuy
@@ -10,6 +8,7 @@ namespace ExploderGuy
         private LevelGenerator _levelGenerator;
         private int _positionX;
         private int _positionY;
+        private float _moveSpeed = 0.5f;
 
         private Vector2Int _leftTileLocation;
         private Vector2Int _topTileLocation;
@@ -78,7 +77,10 @@ namespace ExploderGuy
                 _bottomTileType = _levelGenerator.GetTileType(_bottomTileLocation.x, _bottomTileLocation.y);
             }
 
-            Debug.Log($"Left: {_leftTileType}, {_leftTileLocation}, Right: {_rightTileType}, {_rightTileLocation}");
+            //Debug.Log($"Left: {_leftTileType}, {_leftTileLocation}, " +
+            //          $"Top: {_topTileType}, {_topTileLocation}, " +
+            //          $"Right: {_rightTileType}, {_rightTileLocation}, " +
+            //          $"Bottom: {_bottomTileType}, {_bottomTileLocation}");
 
             ChooseRandomMovementDirection();
         }
@@ -87,46 +89,46 @@ namespace ExploderGuy
         {
             if (_leftTileType == TileType.Empty)
             {
-                Debug.Log($"{_leftTileLocation} is {_leftTileType} (left)!");
+                //Debug.Log($"{_leftTileLocation} is {_leftTileType} (left)!");
                 _canMoveLeft = true;
             }
-            //else if (_topTileType == TileType.Empty)
-            //{
-            //    Debug.Log($"{_topTileLocation} is {_topTileType} (top)");
-            //    _canMoveUp = true;
-            //}
+            else if (_topTileType == TileType.Empty)
+            {
+                //Debug.Log($"{_topTileLocation} is {_topTileType} (top)");
+                _canMoveUp = true;
+            }
             else if (_rightTileType == TileType.Empty)
             {
-                Debug.Log($"{_rightTileLocation} is {_rightTileType} (right)");
+                //Debug.Log($"{_rightTileLocation} is {_rightTileType} (right)");
                 _canMoveRight = true;
             }
-            //else if (_bottomTileType == TileType.Empty)
-            //{
-            //    Debug.Log($"{_bottomTileLocation} is {_bottomTileType} (bottom)");
-            //    _canMoveDown = true;
-            //}
+            else if (_bottomTileType == TileType.Empty)
+            {
+                //Debug.Log($"{_bottomTileLocation} is {_bottomTileType} (bottom)");
+                _canMoveDown = true;
+            }
         }
 
         private void Move()
         {
             if (_canMoveLeft)
             {
-                transform.Translate(new Vector3(-0.5f * Time.deltaTime, 0));
+                transform.Translate(new Vector3(-_moveSpeed * Time.deltaTime, 0));
             }
 
             if (_canMoveUp)
             {
-                transform.Translate(new Vector3(0, 0.5f * Time.deltaTime));
+                transform.Translate(new Vector3(0, _moveSpeed * Time.deltaTime));
             }
 
             if (_canMoveRight)
             {
-                transform.Translate(new Vector3(0.5f * Time.deltaTime, 0));
+                transform.Translate(new Vector3(_moveSpeed * Time.deltaTime, 0));
             }
 
             if (_canMoveDown)
             {
-                transform.Translate(new Vector3(0, -0.5f * Time.deltaTime));
+                transform.Translate(new Vector3(0, -_moveSpeed * Time.deltaTime));
             }
         }
     }

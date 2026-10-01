@@ -33,14 +33,11 @@ namespace ExploderGuy.PlayArea
                 Destroy(softBlock);
             }
 
-            _tileTypes[0, 10] = TileType.SpawnPoint;
-            _tileTypes[1, 10] = TileType.SpawnPoint;
-            _tileTypes[0, 9] = TileType.SpawnPoint;
+            CreateInitialState();
         }
 
         private void Start()
         {
-            CreateInitialState();
             PlaceAdditionalHardBlocks();
 
             if (_extraHardBlockCount >= 9)
@@ -85,6 +82,10 @@ namespace ExploderGuy.PlayArea
                 y++;
                 x = 0;
             }
+
+            _tileTypes[0, 10] = TileType.SpawnPoint;
+            _tileTypes[1, 10] = TileType.SpawnPoint;
+            _tileTypes[0, 9] = TileType.SpawnPoint;
         }
 
         private void PlaceSoftBlocks()
@@ -195,6 +196,9 @@ namespace ExploderGuy.PlayArea
                                 {
                                     Debug.Log("Found a dead end. Starting over!");
                                     _blockTilemap.ClearAllTiles();
+
+                                    ClearTileTypes(); // testing for enemy movement stuff
+
                                     _extraHardBlockCount = 0;
                                     CreateInitialState();
                                 }
@@ -227,9 +231,20 @@ namespace ExploderGuy.PlayArea
                     _enemyCount++;
                 }
 
-                if (_enemyCount == 3)
+                //if (_enemyCount == 3)
+                //{
+                //    Debug.Log($"Enemies: {_enemyCount}");
+                //}
+            }
+        }
+
+        private void ClearTileTypes()
+        {
+            for (int rows = 0; rows < 13; rows++)
+            {
+                for (int columns = 0; columns < 11; columns++)
                 {
-                    Debug.Log($"Enemies: {_enemyCount}");
+                    _tileTypes[rows, columns] = TileType.Empty;
                 }
             }
         }
