@@ -6,24 +6,25 @@ namespace ExploderGuy
     public class EnemyController : MonoBehaviour
     {
         private LevelGenerator _levelGenerator;
+        private Rigidbody2D _rb;
+
         private int _positionX;
         private int _positionY;
-        private float _moveSpeed = 0.5f;
+        private float _moveSpeed = 150.0f;
+        private bool _canMoveLeft;
+        private bool _canMoveUp;
+        private bool _canMoveRight;
+        private bool _canMoveDown;
 
-        private Vector2Int _leftTileLocation;
-        private Vector2Int _topTileLocation;
-        private Vector2Int _rightTileLocation;
-        private Vector2Int _bottomTileLocation;
         private TileType _leftTileType = TileType.HardBlock;
         private TileType _topTileType = TileType.HardBlock;
         private TileType _rightTileType = TileType.HardBlock;
         private TileType _bottomTileType = TileType.HardBlock;
 
-        // temp for movement testing
-        private bool _canMoveLeft;
-        private bool _canMoveUp;
-        private bool _canMoveRight;
-        private bool _canMoveDown;
+        private void Awake()
+        {
+            _rb = GetComponent<Rigidbody2D>();
+        }
 
         private void Start()
         {
@@ -53,34 +54,34 @@ namespace ExploderGuy
 
         private void FindAdjacentEmptyTile()
         {
+            Vector2Int leftTileLocation;
+            Vector2Int topTileLocation;
+            Vector2Int rightTileLocation;
+            Vector2Int bottomTileLocation;
+
             if (_positionX - 1 >= 0)
             {
-                _leftTileLocation = new Vector2Int(_positionX - 1, _positionY);
-                _leftTileType = _levelGenerator.GetTileType(_leftTileLocation.x, _leftTileLocation.y);
+                leftTileLocation = new Vector2Int(_positionX - 1, _positionY);
+                _leftTileType = _levelGenerator.GetTileType(leftTileLocation.x, leftTileLocation.y);
             }
 
             if (_positionX + 1 <= 12)
             {
-                _rightTileLocation = new Vector2Int(_positionX + 1, _positionY);
-                _rightTileType = _levelGenerator.GetTileType(_rightTileLocation.x, _rightTileLocation.y);
+                rightTileLocation = new Vector2Int(_positionX + 1, _positionY);
+                _rightTileType = _levelGenerator.GetTileType(rightTileLocation.x, rightTileLocation.y);
             }
 
             if (_positionY + 1 <= 10)
             {
-                _topTileLocation = new Vector2Int(_positionX, _positionY + 1);
-                _topTileType = _levelGenerator.GetTileType(_topTileLocation.x, _topTileLocation.y);
+                topTileLocation = new Vector2Int(_positionX, _positionY + 1);
+                _topTileType = _levelGenerator.GetTileType(topTileLocation.x, topTileLocation.y);
             }
 
             if (_positionY - 1 >= 0)
             {
-                _bottomTileLocation = new Vector2Int(_positionX, _positionY - 1);
-                _bottomTileType = _levelGenerator.GetTileType(_bottomTileLocation.x, _bottomTileLocation.y);
+                bottomTileLocation = new Vector2Int(_positionX, _positionY - 1);
+                _bottomTileType = _levelGenerator.GetTileType(bottomTileLocation.x, bottomTileLocation.y);
             }
-
-            //Debug.Log($"Left: {_leftTileType}, {_leftTileLocation}, " +
-            //          $"Top: {_topTileType}, {_topTileLocation}, " +
-            //          $"Right: {_rightTileType}, {_rightTileLocation}, " +
-            //          $"Bottom: {_bottomTileType}, {_bottomTileLocation}");
 
             ChooseRandomMovementDirection();
         }
@@ -89,22 +90,18 @@ namespace ExploderGuy
         {
             if (_leftTileType == TileType.Empty)
             {
-                //Debug.Log($"{_leftTileLocation} is {_leftTileType} (left)!");
                 _canMoveLeft = true;
             }
             else if (_topTileType == TileType.Empty)
             {
-                //Debug.Log($"{_topTileLocation} is {_topTileType} (top)");
                 _canMoveUp = true;
             }
             else if (_rightTileType == TileType.Empty)
             {
-                //Debug.Log($"{_rightTileLocation} is {_rightTileType} (right)");
                 _canMoveRight = true;
             }
             else if (_bottomTileType == TileType.Empty)
             {
-                //Debug.Log($"{_bottomTileLocation} is {_bottomTileType} (bottom)");
                 _canMoveDown = true;
             }
         }
@@ -113,23 +110,32 @@ namespace ExploderGuy
         {
             if (_canMoveLeft)
             {
-                transform.Translate(new Vector3(-_moveSpeed * Time.deltaTime, 0));
+                _rb.linearVelocityX = -_moveSpeed * Time.deltaTime;
+                _rb.constraints = RigidbodyConstraints2D.FreezePositionY;
             }
 
             if (_canMoveUp)
             {
-                transform.Translate(new Vector3(0, _moveSpeed * Time.deltaTime));
+                _rb.linearVelocityY = _moveSpeed * Time.deltaTime;
+                _rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             }
 
             if (_canMoveRight)
             {
-                transform.Translate(new Vector3(_moveSpeed * Time.deltaTime, 0));
+                _rb.linearVelocityX = _moveSpeed * Time.deltaTime;
+                _rb.constraints = RigidbodyConstraints2D.FreezePositionY;
             }
 
             if (_canMoveDown)
             {
-                transform.Translate(new Vector3(0, -_moveSpeed * Time.deltaTime));
+                _rb.linearVelocityY = -_moveSpeed * Time.deltaTime;
+                _rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            _moveSpeed = -_moveSpeed;
         }
     }
 
