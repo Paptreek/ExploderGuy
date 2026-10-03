@@ -10,7 +10,7 @@ namespace ExploderGuy
 
         private int _positionX;
         private int _positionY;
-        private float _moveSpeed = 150.0f;
+        private float _moveSpeed = 100.0f;
         private bool _canMoveLeft;
         private bool _canMoveUp;
         private bool _canMoveRight;
@@ -36,6 +36,14 @@ namespace ExploderGuy
 
         private void Update()
         {
+            _positionX = Mathf.FloorToInt(transform.position.x + 6);
+            _positionY = Mathf.FloorToInt(transform.position.y + 5);
+
+            FindAdjacentEmptyTile();
+        }
+
+        private void FixedUpdate()
+        {
             Move();
         }
 
@@ -45,6 +53,11 @@ namespace ExploderGuy
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            _moveSpeed = -_moveSpeed;
         }
 
         public void SetLevelGenerator(LevelGenerator levelGenerator)
@@ -83,10 +96,10 @@ namespace ExploderGuy
                 _bottomTileType = _levelGenerator.GetTileType(bottomTileLocation.x, bottomTileLocation.y);
             }
 
-            ChooseRandomMovementDirection();
+            SelectMovementDirection();
         }
 
-        private void ChooseRandomMovementDirection()
+        private void SelectMovementDirection()
         {
             if (_leftTileType == TileType.Empty)
             {
@@ -131,11 +144,6 @@ namespace ExploderGuy
                 _rb.linearVelocityY = -_moveSpeed * Time.deltaTime;
                 _rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             }
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            _moveSpeed = -_moveSpeed;
         }
     }
 

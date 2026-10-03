@@ -52,6 +52,8 @@ namespace ExploderGuy.PlayArea
             {
                 PlaceEnemies();
             }
+
+            UpdateTileTypes(); // testing live TileType updating
         }
 
         public TileType GetTileType(int x, int y)
@@ -104,6 +106,8 @@ namespace ExploderGuy.PlayArea
                         if (_tileTypes[x, y] == TileType.Empty && random == 13 && _softBlocks.Count < 33)
                         {
                             SoftBlock softBlock = Instantiate(_softBlock, new Vector3(x - 6, y - 5), Quaternion.identity);
+                            softBlock.X = x;
+                            softBlock.Y = y;
                             _tileTypes[x, y] = TileType.SoftBlock;
                             _softBlocks.Add(softBlock);
                         }
@@ -197,7 +201,7 @@ namespace ExploderGuy.PlayArea
                                     Debug.Log("Found a dead end. Starting over!");
                                     _blockTilemap.ClearAllTiles();
 
-                                    ClearTileTypes(); // testing for enemy movement stuff
+                                    ResetTileTypes();
 
                                     _extraHardBlockCount = 0;
                                     CreateInitialState();
@@ -238,13 +242,25 @@ namespace ExploderGuy.PlayArea
             }
         }
 
-        private void ClearTileTypes()
+        private void ResetTileTypes()
         {
             for (int rows = 0; rows < 13; rows++)
             {
                 for (int columns = 0; columns < 11; columns++)
                 {
                     _tileTypes[rows, columns] = TileType.Empty;
+                }
+            }
+        }
+
+        // testing live TileType updating
+        private void UpdateTileTypes()
+        {
+            foreach (SoftBlock block in _softBlocks)
+            {
+                if (block.IsDestroyed)
+                {
+                    _tileTypes[block.X, block.Y] = TileType.Empty;
                 }
             }
         }
