@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -19,7 +20,7 @@ namespace ExploderGuy.PlayArea
         [SerializeField] private NodeGrid _nodeGrid;
 
         private int _extraHardBlockCount;
-        private int _enemyCount;
+        private List<EnemyController> _enemies = new List<EnemyController>();
         private List<SoftBlock> _softBlocks = new List<SoftBlock>();
         private TileType[,] _tileTypes = new TileType[13, 11];
 
@@ -53,7 +54,7 @@ namespace ExploderGuy.PlayArea
                 PlaceEnemies();
             }
 
-            UpdateTileTypes(); // testing live TileType updating
+            UpdateSoftBlockTileTypes();
         }
 
         public TileType GetTileType(int x, int y)
@@ -192,7 +193,6 @@ namespace ExploderGuy.PlayArea
                             }
                             else
                             {
-                                //await Task.Delay(100);
                                 await Task.Yield();
                                 _pathfinding.FindPath(_pathfinding.Seeker.position, new Vector3(xToCheck - 6, yToCheck - 5));
 
@@ -222,7 +222,7 @@ namespace ExploderGuy.PlayArea
 
         private void PlaceEnemies()
         {
-            while (_enemyCount < 3)
+            while (_enemies.Count < 3)
             {
                 int randomX = Random.Range(0, 13);
                 int randomY = Random.Range(0, 11);
@@ -232,13 +232,8 @@ namespace ExploderGuy.PlayArea
                     EnemyController enemy = Instantiate(_enemy, new Vector3(randomX - 6, randomY - 5), Quaternion.identity);
                     enemy.SetLevelGenerator(this);
                     _tileTypes[randomX, randomY] = TileType.Enemy;
-                    _enemyCount++;
+                    _enemies.Add(enemy);
                 }
-
-                //if (_enemyCount == 3)
-                //{
-                //    Debug.Log($"Enemies: {_enemyCount}");
-                //}
             }
         }
 
@@ -253,8 +248,7 @@ namespace ExploderGuy.PlayArea
             }
         }
 
-        // testing live TileType updating
-        private void UpdateTileTypes()
+        private void UpdateSoftBlockTileTypes()
         {
             foreach (SoftBlock block in _softBlocks)
             {

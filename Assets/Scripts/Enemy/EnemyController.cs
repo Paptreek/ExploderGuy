@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ExploderGuy.PlayArea;
 using UnityEngine;
 
@@ -8,18 +9,20 @@ namespace ExploderGuy
         private LevelGenerator _levelGenerator;
         private Rigidbody2D _rb;
 
-        private int _positionX;
-        private int _positionY;
-        private float _moveSpeed = 100.0f;
+        private float _moveSpeed = 60.0f;
         private bool _canMoveLeft;
         private bool _canMoveUp;
         private bool _canMoveRight;
         private bool _canMoveDown;
+        private bool _isMoving;
 
         private TileType _leftTileType = TileType.HardBlock;
         private TileType _topTileType = TileType.HardBlock;
         private TileType _rightTileType = TileType.HardBlock;
         private TileType _bottomTileType = TileType.HardBlock;
+
+        public int X { get; private set; }
+        public int Y { get; private set; }
 
         private void Awake()
         {
@@ -28,18 +31,21 @@ namespace ExploderGuy
 
         private void Start()
         {
-            _positionX = Mathf.FloorToInt(transform.position.x + 6);
-            _positionY = Mathf.FloorToInt(transform.position.y + 5);
+            X = Mathf.RoundToInt(transform.position.x + 6);
+            Y = Mathf.RoundToInt(transform.position.y + 5);
 
             FindAdjacentEmptyTile();
         }
 
         private void Update()
         {
-            _positionX = Mathf.FloorToInt(transform.position.x + 6);
-            _positionY = Mathf.FloorToInt(transform.position.y + 5);
+            X = Mathf.RoundToInt(transform.position.x + 6);
+            Y = Mathf.RoundToInt(transform.position.y + 5);
 
-            FindAdjacentEmptyTile();
+            if (!_isMoving)
+            {
+                FindAdjacentEmptyTile();
+            }
         }
 
         private void FixedUpdate()
@@ -72,50 +78,74 @@ namespace ExploderGuy
             Vector2Int rightTileLocation;
             Vector2Int bottomTileLocation;
 
-            if (_positionX - 1 >= 0)
+            if (X - 1 >= 0)
             {
-                leftTileLocation = new Vector2Int(_positionX - 1, _positionY);
+                leftTileLocation = new Vector2Int(X - 1, Y);
                 _leftTileType = _levelGenerator.GetTileType(leftTileLocation.x, leftTileLocation.y);
             }
 
-            if (_positionX + 1 <= 12)
+            if (X + 1 <= 12)
             {
-                rightTileLocation = new Vector2Int(_positionX + 1, _positionY);
+                rightTileLocation = new Vector2Int(X + 1, Y);
                 _rightTileType = _levelGenerator.GetTileType(rightTileLocation.x, rightTileLocation.y);
             }
 
-            if (_positionY + 1 <= 10)
+            if (Y + 1 <= 10)
             {
-                topTileLocation = new Vector2Int(_positionX, _positionY + 1);
+                topTileLocation = new Vector2Int(X, Y + 1);
                 _topTileType = _levelGenerator.GetTileType(topTileLocation.x, topTileLocation.y);
             }
 
-            if (_positionY - 1 >= 0)
+            if (Y - 1 >= 0)
             {
-                bottomTileLocation = new Vector2Int(_positionX, _positionY - 1);
+                bottomTileLocation = new Vector2Int(X, Y - 1);
                 _bottomTileType = _levelGenerator.GetTileType(bottomTileLocation.x, bottomTileLocation.y);
             }
 
-            SelectMovementDirection();
+            SelectRandomMovementDirection();
         }
 
-        private void SelectMovementDirection()
+        private void SelectRandomMovementDirection()
         {
-            if (_leftTileType == TileType.Empty)
+            List<DirectionToMove> possibleDirections = new List<DirectionToMove>();
+
+            if (_leftTileType == TileType.Empty || _leftTileType == TileType.Enemy)
             {
-                _canMoveLeft = true;
+                possibleDirections.Add(DirectionToMove.Left);
             }
-            else if (_topTileType == TileType.Empty)
+            if (_topTileType == TileType.Empty || _topTileType == TileType.Enemy)
             {
-                _canMoveUp = true;
+                possibleDirections.Add(DirectionToMove.Up);
             }
-            else if (_rightTileType == TileType.Empty)
+            if (_rightTileType == TileType.Empty || _rightTileType == TileType.Enemy)
             {
-                _canMoveRight = true;
+                possibleDirections.Add(DirectionToMove.Right);
             }
-            else if (_bottomTileType == TileType.Empty)
+            if (_bottomTileType == TileType.Empty || _bottomTileType == TileType.Enemy)
             {
-                _canMoveDown = true;
+                possibleDirections.Add(DirectionToMove.Down);
+            }
+
+            if (possibleDirections.Count > 0)
+            {
+                DirectionToMove directionToMove = possibleDirections[Random.Range(0, possibleDirections.Count)];
+
+                if (directionToMove == DirectionToMove.Left)
+                {
+                    _canMoveLeft = true;
+                }
+                else if (directionToMove == DirectionToMove.Up)
+                {
+                    _canMoveUp = true;
+                }
+                else if (directionToMove == DirectionToMove.Right)
+                {
+                    _canMoveRight = true;
+                }
+                else if (directionToMove == DirectionToMove.Down)
+                {
+                    _canMoveDown = true;
+                }
             }
         }
 
@@ -125,24 +155,28 @@ namespace ExploderGuy
             {
                 _rb.linearVelocityX = -_moveSpeed * Time.deltaTime;
                 _rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+                _isMoving = true;
             }
 
             if (_canMoveUp)
             {
                 _rb.linearVelocityY = _moveSpeed * Time.deltaTime;
                 _rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+                _isMoving = true;
             }
 
             if (_canMoveRight)
             {
                 _rb.linearVelocityX = _moveSpeed * Time.deltaTime;
                 _rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+                _isMoving = true;
             }
 
             if (_canMoveDown)
             {
                 _rb.linearVelocityY = -_moveSpeed * Time.deltaTime;
                 _rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+                _isMoving = true;
             }
         }
     }
