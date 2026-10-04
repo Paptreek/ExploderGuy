@@ -29,14 +29,6 @@ namespace ExploderGuy
             _rb = GetComponent<Rigidbody2D>();
         }
 
-        private void Start()
-        {
-            X = Mathf.RoundToInt(transform.position.x + 6);
-            Y = Mathf.RoundToInt(transform.position.y + 5);
-
-            FindAdjacentEmptyTile();
-        }
-
         private void Update()
         {
             X = Mathf.RoundToInt(transform.position.x + 6);
@@ -109,42 +101,44 @@ namespace ExploderGuy
         {
             List<DirectionToMove> possibleDirections = new List<DirectionToMove>();
 
-            if (_leftTileType == TileType.Empty || _leftTileType == TileType.Enemy)
+            if (IsMoveable(_leftTileType))
             {
                 possibleDirections.Add(DirectionToMove.Left);
             }
-            if (_topTileType == TileType.Empty || _topTileType == TileType.Enemy)
+
+            if (IsMoveable(_topTileType))
             {
                 possibleDirections.Add(DirectionToMove.Up);
             }
-            if (_rightTileType == TileType.Empty || _rightTileType == TileType.Enemy)
+
+            if (IsMoveable(_rightTileType))
             {
                 possibleDirections.Add(DirectionToMove.Right);
             }
-            if (_bottomTileType == TileType.Empty || _bottomTileType == TileType.Enemy)
+
+            if (IsMoveable(_bottomTileType))
             {
                 possibleDirections.Add(DirectionToMove.Down);
             }
 
             if (possibleDirections.Count > 0)
             {
-                DirectionToMove directionToMove = possibleDirections[Random.Range(0, possibleDirections.Count)];
+                DirectionToMove chosenDirection = possibleDirections[Random.Range(0, possibleDirections.Count)];
 
-                if (directionToMove == DirectionToMove.Left)
+                switch (chosenDirection)
                 {
-                    _canMoveLeft = true;
-                }
-                else if (directionToMove == DirectionToMove.Up)
-                {
-                    _canMoveUp = true;
-                }
-                else if (directionToMove == DirectionToMove.Right)
-                {
-                    _canMoveRight = true;
-                }
-                else if (directionToMove == DirectionToMove.Down)
-                {
-                    _canMoveDown = true;
+                    case DirectionToMove.Left:
+                        _canMoveLeft = true;
+                        break;
+                    case DirectionToMove.Up:
+                        _canMoveUp = true;
+                        break;
+                    case DirectionToMove.Right:
+                        _canMoveRight = true;
+                        break;
+                    case DirectionToMove.Down:
+                        _canMoveDown = true;
+                        break;
                 }
             }
         }
@@ -153,30 +147,50 @@ namespace ExploderGuy
         {
             if (_canMoveLeft)
             {
-                _rb.linearVelocityX = -_moveSpeed * Time.deltaTime;
-                _rb.constraints = RigidbodyConstraints2D.FreezePositionY;
-                _isMoving = true;
+                SetMoveSettings(false, -_moveSpeed);
             }
 
             if (_canMoveUp)
             {
-                _rb.linearVelocityY = _moveSpeed * Time.deltaTime;
-                _rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-                _isMoving = true;
+                SetMoveSettings(true, _moveSpeed);
             }
 
             if (_canMoveRight)
             {
-                _rb.linearVelocityX = _moveSpeed * Time.deltaTime;
-                _rb.constraints = RigidbodyConstraints2D.FreezePositionY;
-                _isMoving = true;
+                SetMoveSettings(false, _moveSpeed);
             }
 
             if (_canMoveDown)
             {
-                _rb.linearVelocityY = -_moveSpeed * Time.deltaTime;
+                SetMoveSettings(true, -_moveSpeed);
+            }
+        }
+
+        private void SetMoveSettings(bool isMovingVertically, float moveSpeed)
+        {
+            if (isMovingVertically)
+            {
+                _rb.linearVelocityY = moveSpeed * Time.deltaTime;
                 _rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-                _isMoving = true;
+            }
+            else
+            {
+                _rb.linearVelocityX = moveSpeed * Time.deltaTime;
+                _rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+            }
+
+            _isMoving = true;
+        }
+
+        private bool IsMoveable(TileType tile)
+        {
+            if (tile == TileType.Empty || tile == TileType.Enemy || tile == TileType.SpawnPoint)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

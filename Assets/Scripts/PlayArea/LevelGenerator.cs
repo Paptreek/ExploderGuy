@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -40,11 +39,6 @@ namespace ExploderGuy.PlayArea
         private void Start()
         {
             PlaceAdditionalHardBlocks();
-
-            if (_extraHardBlockCount >= 9)
-            {
-                PlaceSoftBlocks();
-            }
         }
 
         private void Update()
